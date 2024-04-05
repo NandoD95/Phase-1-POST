@@ -51,3 +51,30 @@ function renderCharacters(charArr) {
     POST REQUEST
 ----------------------------------------------------- */
 
+const form = document.querySelector('form')
+form.addEventListener('submit', (e) => addNewCharacter(e))
+
+function addNewCharacter(e){
+    e.preventDefault()
+
+    const newCharobj = {
+        name : e.target.name.value,
+        age : e.target.age.value,
+        image : e.target.image.value,
+    }
+
+    // renderCharacters ([newCharObj])
+    // THIS CODE WILL RENDER BUT WILL DELETE ONCE REFRESHED
+
+    fetch(url, {
+        method : 'POST',
+        headers : {
+            'Accept' : 'application/json',
+            'content-type' : 'application/json'
+        },
+        body : JSON.stringify(newCharObj)
+    })
+        .then((resp) => resp.json)
+        .then((data) => renderCharacters([data]))
+// THIS CODE IS A FULL POST AND PERSIST 
+}
